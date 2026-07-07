@@ -9,10 +9,34 @@ CREATE PROCEDURE SP_AgendarTurno
 AS
 BEGIN
 
-    -- se verifica que la fecha no sea anterior a la fecha actual
     IF @fecha < CAST(GETDATE() AS DATE)
+    -- Se verifica que la fecha no sea anterior a la fecha actual
     BEGIN
         PRINT 'No se pueden registrar turnos en fechas pasadas.';
+        RETURN;
+    END;
+
+    -- Verifica que la mascota exista
+    IF NOT EXISTS
+    (
+        SELECT 1
+        FROM Mascotas
+        WHERE IDMascota = @id_mascota
+    )
+    BEGIN
+        PRINT 'La mascota no existe.';
+        RETURN;
+    END;
+
+    -- Verifica que el veterinario exista
+    IF NOT EXISTS
+    (
+        SELECT 1
+        FROM Veterinarios
+        WHERE IDVeterinario = @id_veterinario
+    )
+    BEGIN
+        PRINT 'El veterinario no existe.';
         RETURN;
     END;
 
@@ -46,7 +70,7 @@ BEGIN
         RETURN;
     END;
 
-    -- se inserta el turno en la tabla Turnos
+    -- Se inserta el turno
     INSERT INTO Turnos
     (
         IDMascota,

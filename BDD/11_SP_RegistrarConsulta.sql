@@ -42,7 +42,8 @@ BEGIN
             @temperatura
         FROM Turnos
         WHERE IDTurno = @id_turno;
-
+        
+--se actualiza el estado del turno a "Atendido"
         UPDATE Turnos
         SET Estado = 'Atendido'
         WHERE IDTurno = @id_turno;
