@@ -1,5 +1,18 @@
 USE VeterinariaDB;
 GO
+/* =====================================================
+   TRIGGER 1: DESCONTAR STOCK DE MEDICAMENTO
+
+   Este trigger se ejecuta automáticamente después de insertar
+   un registro en la tabla TratamientoMedicamento.
+
+   Su objetivo es controlar que exista stock suficiente del
+   medicamento antes de asignarlo a un tratamiento.
+
+   Si no hay stock suficiente, la operación se cancela.
+   Si hay stock disponible, se descuenta la cantidad utilizada
+   de la tabla Medicamentos.
+   ===================================================== */
 
 CREATE TRIGGER TR_DescontarStockMedicamento
 ON TratamientoMedicamento
